@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Curso · Péptidos en Farmacología Deportiva</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --surface: #111318;
+    --surface2: #181c23;
+    --border: #1e2430;
+    --accent: #00e5c0;
+    --accent2: #ff6b35;
+    --accent3: #a78bfa;
+    --accent4: #f59e0b;
+    --text: #e8eaf0;
+    --text-muted: #6b7280;
+    --text-dim: #9ca3af;
+    --fat: #ff6b35;
+    --muscle: #00e5c0;
+    --recovery: #a78bfa;
+    --aesthetic: #f59e0b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  /* ── HEADER ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 60px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 50%, rgba(0,229,192,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(167,139,250,0.06) 0%, transparent 60%),
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255,255,255,0.015) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255,255,255,0.015) 40px);
+    pointer-events: none;
+  }
+  .hero-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 88px);
+    font-weight: 900;
+    line-height: 1.0;
+    max-width: 800px;
+    margin-bottom: 8px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text-dim);
+    max-width: 520px;
+    margin-top: 24px;
+    margin-bottom: 48px;
+    font-weight: 300;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .hero-meta-item span:first-child {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .hero-meta-item span:last-child {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* ── NAV INDEX ── */
+  .toc {
+    padding: 60px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .toc-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text-dim);
+    font-size: 13px;
+    transition: all 0.2s;
+    background: var(--surface2);
+  }
+  .toc-item:hover {
+    border-color: var(--accent);
+    color: var(--text);
+    background: rgba(0,229,192,0.04);
+  }
+  .toc-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    min-width: 24px;
+  }
+  .toc-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  /* ── MODULE ── */
+  .module {
+    padding: 80px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .module-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+  .module-number {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    padding-top: 6px;
+    min-width: 60px;
+  }
+  .module-title-block h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 10px;
+  }
+  .module-desc {
+    color: var(--text-dim);
+    font-size: 14px;
+    font-weight: 300;
+    max-width: 600px;
+  }
+
+  /* ── PEPTIDE CARD ── */
+  .peptide-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+  .peptide-card-header {
+    padding: 24px 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .peptide-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .peptide-alias {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  .badge {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid;
+    flex-shrink: 0;
+  }
+  .badge-fat    { color: var(--fat);      border-color: var(--fat);      background: rgba(255,107,53,0.08); }
+  .badge-muscle { color: var(--muscle);   border-color: var(--muscle);   background: rgba(0,229,192,0.08); }
+  .badge-recovery { color: var(--recovery); border-color: var(--recovery); background: rgba(167,139,250,0.08); }
+  .badge-aesthetic { color: var(--aesthetic); border-color: var(--aesthetic); background: rgba(245,158,11,0.08); }
+
+  .peptide-body {
+    padding: 28px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 700px) {
+    .peptide-body { grid-template-columns: 1fr; }
+    .hero, .toc, .container { padding-left: 24px; padding-right: 24px; }
+  }
+
+  .info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .info-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .info-content {
+    font-size: 13.5px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .info-content strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .info-block.full-width {
+    grid-column: 1 / -1;
+  }
+
+  /* mechanism strip */
+  .mechanism-strip {
+    grid-column: 1 / -1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 20px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .mechanism-strip .icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .mechanism-text {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.7;
+  }
+  .mechanism-text strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  /* side effects block */
+  .se-grid {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 700px) { .se-grid { grid-template-columns: 1fr; } }
+  .se-block {
+    padding: 14px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .se-block.warning {
+    background: rgba(255,107,53,0.06);
+    border: 1px solid rgba(255,107,53,0.2);
+  }
+  .se-block.mitigation {
+    background: rgba(0,229,192,0.05);
+    border: 1px solid rgba(0,229,192,0.15);
+  }
+  .se-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .se-title.warn { color: var(--fat); }
+  .se-title.ok   { color: var(--muscle); }
+
+  /* protocol table */
+  .protocol-table {
+    grid-column: 1 / -1;
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .protocol-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: left;
+    padding: 10px 14px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+  }
+  .protocol-table td {
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    vertical-align: top;
+    line-height: 1.6;
+  }
+  .protocol-table td strong {
+    color: var(--text);
+  }
+
+  /* ── SECTION DIVIDERS ── */
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+    margin-top: 48px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    border-left: 3px solid;
+    padding: 16px 20px;
+    border-radius: 0 6px 6px 0;
+    margin: 20px 0;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--text-dim);
+  }
+  .callout.info  { border-color: var(--accent3); background: rgba(167,139,250,0.05); }
+  .callout.warn  { border-color: var(--fat);     background: rgba(255,107,53,0.05); }
+  .callout.tip   { border-color: var(--muscle);  background: rgba(0,229,192,0.05); }
+  .callout strong { color: var(--text); }
+
+  /* ── STACKS ── */
+  .stack-card {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    background: var(--surface);
+    margin-bottom: 20px;
+  }
+  .stack-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .stack-goal {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .stack-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .stack-pill {
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+  }
+  .stack-note {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 60px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    border-top: 1px solid var(--border);
+    line-height: 1.8;
+  }
+
+  /* ── ul style ── */
+  ul.dot-list {
+    list-style: none;
+    padding: 0;
+  }
+  ul.dot-list li {
+    padding-left: 16px;
+    position: relative;
+    font-size: 13.5px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 4px;
+  }
+  ul.dot-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 11px;
+    top: 2px;
+  }
+
+  /* print */
+  @media print {
+    body { background: white; color: #111; }
+    .hero::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-tag">NJ Coaching · Farmacología Deportiva</div>
+  <h1>Péptidos:<br><em>Manual Técnico</em><br>de Referencia</h1>
+  <p class="hero-sub">Guía de uso aplicado en contexto deportivo y estético — reducción de grasa, hipertrofia, recuperación de tejidos y protocolos estéticos.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span>Nivel</span>
+      <span>Técnico–Aplicado</span>
+    </div>
+    <div class="hero-meta-item">
+      <span>Módulos</span>
+      <span>4 áreas + Stacks</span>
+    </div>
+    <div class="hero-meta-item">
+      <span>Versión</span>
+      <span>2025 · Actualizado</span>
+    </div>
+    <div class="hero-meta-item">
+      <span>Elaborado por</span>
+      <span>NJ Coaching</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     ADVERTENCIA LEGAL
+═══════════════════════════════════════════ -->
+<div style="background:#1a1208;border-bottom:1px solid rgba(245,158,11,0.25);padding:18px 60px;">
+  <div style="max-width:1000px;margin:0 auto;display:flex;gap:12px;align-items:flex-start;font-size:13px;color:#9c8060;line-height:1.6;">
+    <span style="font-size:16px;flex-shrink:0">⚠️</span>
+    <span><strong style="color:#f59e0b">Aviso:</strong> Este material tiene fines educativos y de formación profesional. El uso de péptidos varía en su estatus legal según el país y su contexto (uso humano vs. investigación). Muchos no están aprobados por agencias regulatorias para uso clínico generalizado. La prescripción y supervisión médica es siempre recomendable. Este documento no reemplaza la consulta con un profesional de la salud.</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     ÍNDICE
+═══════════════════════════════════════════ -->
+<nav class="toc">
+  <div class="toc-title">Índice de Contenidos</div>
+  <div class="toc-grid">
+    <a href="#intro" class="toc-item"><span class="toc-num">00</span><span class="toc-dot" style="background:var(--text-muted)"></span>Introducción a los Péptidos</a>
+    <a href="#fat" class="toc-item"><span class="toc-num">01</span><span class="toc-dot" style="background:var(--fat)"></span>Reducción de Grasa Corporal</a>
+    <a href="#muscle" class="toc-item"><span class="toc-num">02</span><span class="toc-dot" style="background:var(--muscle)"></span>Aumento de Masa Muscular</a>
+    <a href="#recovery" class="toc-item"><span class="toc-num">03</span><span class="toc-dot" style="background:var(--recovery)"></span>Recuperación de Tejidos</a>
+    <a href="#aesthetic" class="toc-item"><span class="toc-num">04</span><span class="toc-dot" style="background:var(--aesthetic)"></span>Aspectos Estéticos</a>
+    <a href="#stacks" class="toc-item"><span class="toc-num">05</span><span class="toc-dot" style="background:var(--accent3)"></span>Stacks y Protocolos Combinados</a>
+    <a href="#considerations" class="toc-item"><span class="toc-num">06</span><span class="toc-dot" style="background:var(--text-muted)"></span>Consideraciones Generales</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ══════════════════════════════════════════
+     00 · INTRODUCCIÓN
+═══════════════════════════════════════════ -->
+<section class="module" id="intro">
+  <div class="module-header">
+    <div class="module-number">00 · INTRO</div>
+    <div class="module-title-block">
+      <h2>¿Qué son los péptidos<br>y cómo se clasifican?</h2>
+      <p class="module-desc">Base conceptual para entender por qué actúan diferente a los esteroides anabólicos y cuáles son sus ventajas relativas.</p>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <strong>Definición:</strong> Los péptidos son cadenas cortas de aminoácidos (generalmente 2–50 aa) que actúan como señales biológicas. A diferencia de los esteroides, no modifican directamente la expresión génica de forma sistémica y persistente; actúan principalmente como ligandos de receptores de membrana, desencadenando cascadas de señalización específicas.
+  </div>
+
+  <div class="section-label">Clasificación por mecanismo de acción</div>
+  <ul class="dot-list">
+    <li><strong>GHSs (Growth Hormone Secretagogues):</strong> estimulan la liberación endógena de GH. Ej: GHRP-2, GHRP-6, Ipamorelin, Hexarelin.</li>
+    <li><strong>GHRHs (Growth Hormone Releasing Hormone analogs):</strong> actúan sobre el hipotálamo para potenciar el pulso de GH. Ej: CJC-1295, Sermorelin, Tesamorelin.</li>
+    <li><strong>Peptidos de reparación tisular:</strong> actúan localmente sobre factores de crecimiento y síntesis de colágeno. Ej: BPC-157, TB-500, GHK-Cu.</li>
+    <li><strong>Melanocortinas:</strong> actúan sobre receptores MC1R–MC5R. Ej: PT-141, Melanotan II.</li>
+    <li><strong>Péptidos lipolíticos/metabólicos:</strong> modulan la oxidación de ácidos grasos o la saciedad. Ej: AOD-9604, Fragment 176-191, Semaglutida (GLP-1 análogo).</li>
+  </ul>
+
+  <div class="section-label">Vías de administración</div>
+  <ul class="dot-list">
+    <li><strong>Subcutánea (SC):</strong> la más común. Absorción lenta y sostenida. Abdomen o muslo. Jeringa de insulina 29–31G.</li>
+    <li><strong>Intramuscular (IM):</strong> absorción más rápida. Usada en BPC-157 para efectos sistémicos o en zonas específicas para acción local.</li>
+    <li><strong>Intranasal:</strong> PT-141, Sermorelin intranasal (menor biodisponibilidad que SC, ~10–30%).</li>
+    <li><strong>Oral:</strong> muy limitada. La mayoría se degrada en el tracto GI. Excepción: BPC-157 oral muestra acción en mucosa intestinal y ciertos efectos sistémicos.</li>
+  </ul>
+
+  <div class="callout warn">
+    <strong>Reconstitución:</strong> La mayoría viene en polvo liofilizado. Se reconstituye con agua bacteriostática (no estéril). Concentración habitual: 2–5 mg/mL según el péptido. Almacenamiento: 2–8°C una vez reconstituido; hasta 30 días. Sin reconstituir: puede conservarse meses a –20°C.
+  </div>
+
+  <div class="section-label">Ventajas frente a esteroides anabólicos</div>
+  <ul class="dot-list">
+    <li>No suprimen (o suprimen mínimamente) el eje hipotálamo-hipofisario-gonadal (HHG).</li>
+    <li>Los GHSs estimulan GH endógena → perfil pulsátil fisiológico, menor riesgo de supresión del eje GH.</li>
+    <li>No producen virilización, ginecomastia, ni alteraciones lipídicas severas comparables a los AAS.</li>
+    <li>Menor riesgo hepatotóxico (no hepatotóxicos en su mayoría).</li>
+    <li>Alta especificidad de acción → efectos más dirigidos y predecibles.</li>
+  </ul>
+</section>
+
+<!-- ══════════════════════════════════════════
+     01 · REDUCCIÓN DE GRASA
+═══════════════════════════════════════════ -->
+<section class="module" id="fat">
+  <div class="module-header">
+    <div class="module-number">01</div>
+    <div class="module-title-block">
+      <h2>Reducción de<br>Grasa Corporal</h2>
+      <p class="module-desc">Péptidos con acción directa o indirecta sobre la movilización y oxidación del tejido adiposo.</p>
+    </div>
+  </div>
+
+  <!-- AOD-9604 -->
+  <div class="peptide-card">
+    <div class="peptide-card-header">
+      <div>
+        <div class="peptide-name">AOD-9604</div>
+        <div class="peptide-alias">Advanced Obesity Drug · Fragmento sintético de GH</div>
+      </div>
+      <span class="badge badge-fat">Lipolítico</span>
+    </div>
+    <div class="peptide-body">
+      <div class="mechanism-strip">
+        <span class="icon">⚙️</span>
+        <div class="mechanism-text">
+          <strong>Mecanismo:</strong> Es un fragmento sintético de los aminoácidos 176–191 de la GH humana. Se une al receptor beta-3 adrenérgico del tejido adiposo, estimulando la lipólisis (ruptura de triglicéridos en ácidos grasos libres) e inhibiendo la lipogénesis (síntesis de nuevas grasas). A diferencia de la GH completa, <strong>no tiene efecto sobre el IGF-1</strong> ni sobre la glucemia, lo que lo hace metabólicamente más limpio.
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Dosis estándar</div>
+        <div class="info-content"><strong>250–500 mcg/día</strong> SC. La dosis más utilizada es 300 mcg/día.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Horario recomendado</div>
+        <div class="info-content">30–45 min antes del entrenamiento o en ayunas matutino. Evitar carbohidratos altos en la ventana de 1h post-inyección para no bloquear la lipólisis.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Duración del ciclo</div>
+        <div class="info-content"><strong>8–12 semanas.</strong> Se puede extender a 16 semanas con resultados decrecientes. Descanso de 4 semanas antes de reiniciar.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Frecuencia semanal</div>
+        <div class="info-content">Uso diario. Algunos protocolos usan 5 días ON / 2 OFF para reducir tolerancia.</div>
+      </div>
+      <div class="se-grid">
+        <div class="se-block warning">
+          <div class="se-title warn">Efectos secundarios</div>
+          Enrojecimiento local en sitio de inyección. Leve hipoglucemia transitoria (raro). Somnolencia postinyección (muy ocasional). Sin efectos androgénicos conocidos.
+        </div>
+        <div class="se-block mitigation">
+          <div class="se-title ok">Mitigación</div>
+          Rotar sitios de inyección. Inyectar lentamente (30 seg). Asegurar alimentación previa si se tiene tendencia a hipoglucemia. Hidratación adecuada.
+        </div>
+      </div>
+      <div class="info-block full-width">
+        <div class="info-label">Notas clínicas</div>
+        <div class="info-content">Ha sido estudiado clínicamente en fase II para obesidad. No produce resistencia a la insulina. Compatible con GHSs en stack (sinergia lipolítica). <strong>No hay evidencia de efecto sobre cartílago u osteoartritis</strong> como algunos afirman erróneamente en redes sociales.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fragment 176-191 -->
+  <div class="peptide-card">
+    <div class="peptide-card-header">
+      <div>
+        <div class="peptide-name">Fragment 176-191</div>
+        <div class="peptide-alias">HGH Frag · Fragmento C-terminal de GH</div>
+      </div>
+      <span class="badge badge-fat">Lipolítico</span>
+    </div>
+    <div class="peptide-body">
+      <div class="mechanism-strip">
+        <span class="icon">⚙️</span>
+        <div class="mechanism-text">
+          <strong>Mecanismo:</strong> Similar al AOD-9604 (son prácticamente el mismo compuesto con nomenclatura diferente, siendo el Frag 176-191 la versión original y el AOD-9604 la denominación comercial de AstraZeneca para el mismo fragmento). Activa la lipólisis vía β3-adrenérgico y <strong>mimetiza el efecto lipolítico de la GH sin sus efectos anabólicos o diabetogénicos</strong>. Tiene aproximadamente 12 veces la potencia lipolítica de la GH completa sobre el tejido adiposo.
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Dosis estándar</div>
+        <div class="info-content"><strong>250–500 mcg/día</strong> SC. Dosis más común: 250 mcg × 2 dosis/día (mañana en ayunas + pre-entrenamiento).</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Horario recomendado</div>
+        <div class="info-content">Con estómago vacío. Insulina e ingesta de carbohidratos atenúan significativamente su efecto lipolítico. Al menos 2h post-comida.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Duración del ciclo</div>
+        <div class="info-content"><strong>8–12 semanas.</strong> Resultados visibles desde semana 4–6 con déficit calórico paralelo.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Sinergia</div>
+        <div class="info-content">Combina muy bien con CJC-1295/Ipamorelin para efecto GH + lipólisis. También con T3 en ciclos de cutting avanzados (supervisión estricta).</div>
+      </div>
+      <div class="se-grid">
+        <div class="se-block warning">
+          <div class="se-title warn">Efectos secundarios</div>
+          Irritación local leve. Fatiga postinyección en dosis altas. Hipoglucemia leve si se usa en ayunas prolongado.
+        </div>
+        <div class="se-block mitigation">
+          <div class="se-title ok">Mitigación</div>
+          Monitorear glucemia si hay tendencia hipoglucémica. Inyección lenta. No superar 500 mcg/dosis.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tesamorelin -->
+  <div class="peptide-card">
+    <div class="peptide-card-header">
+      <div>
+        <div class="peptide-name">Tesamorelin</div>
+        <div class="peptide-alias">Egrifta® · Análogo de GHRH aprobado por FDA</div>
+      </div>
+      <span class="badge badge-fat">GHRH · Lipolítico visceral</span>
+    </div>
+    <div class="peptide-body">
+      <div class="mechanism-strip">
+        <span class="icon">⚙️</span>
+        <div class="mechanism-text">
+          <strong>Mecanismo:</strong> Es un análogo estabilizado de GHRH. Estimula la hipófisis para que libere GH de forma pulsátil, lo que secundariamente genera un estado lipolítico. Su acción más documentada clínicamente es la <strong>reducción de grasa visceral</strong> (abdominal profunda). Aumenta GH e IGF-1 endógenos, por lo que también tiene efectos anabólicos secundarios.
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Dosis estándar</div>
+        <div class="info-content"><strong>1–2 mg/día</strong> SC. Dosis clínica aprobada: 2 mg/día para lipodistrofia por VIH. En contexto deportivo se usa 1 mg/día.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Horario recomendado</div>
+        <div class="info-content">Antes de dormir (para coincidir con el pulso nocturno de GH) o 30–45 min pre-entrenamiento. Estómago vacío o con comida baja en carbohidratos.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Duración del ciclo</div>
+        <div class="info-content"><strong>12–26 semanas.</strong> Resultados metabólicos visibles a partir de 8–12 semanas. Aprobado para uso prolongado en contexto clínico.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Ventaja clave</div>
+        <div class="info-content">Es el único péptido con <strong>aprobación FDA</strong> para uso humano (lipodistrofia). Perfil de seguridad muy bien documentado. Alta biodisponibilidad y vida media prolongada vs otros GHRHs.</div>
+      </div>
+      <div class="se-grid">
+        <div class="se-block warning">
+          <div class="se-title warn">Efectos secundarios</div>
+          Retención de líquidos (edema periférico leve). Artralgias (dolor articular). Elevación de glucemia (monitorear en prediabéticos). Reacción en sitio de inyección. Puede elevar IGF-1 por encima del rango normal con dosis altas.
+        </div>
+        <div class="se-block mitigation">
+          <div class="se-title ok">Mitigación</div>
+          Reducir sodio en la dieta si hay edema. Control glucémico. Monitorear IGF-1 cada 6–8 semanas. Dosis de 1 mg minimiza efectos secundarios. No usar en pacientes con neoplasias activas (contraindica el aumento de IGF-1).
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     02 · MASA MUSCULAR
+═══════════════════════════════════════════ -->
+<section class="module" id="muscle">
+  <div class="module-header">
+    <div class="module-number">02</div>
+    <div class="module-title-block">
+      <h2>Aumento de<br>Masa Muscular</h2>
+      <p class="module-desc">Péptidos que estimulan la secreción de GH, IGF-1 y síntesis proteica para promover hipertrofia y composición corporal.</p>
+    </div>
+  </div>
+
+  <!-- CJC-1295 + Ipamorelin (Stack clásico) -->
+  <div class="callout tip">
+    <strong>Stack estrella:</strong> CJC-1295 + Ipamorelin es la combinación más utilizada en bodybuilding natural y semi-natural por su sinergia en el eje GH. Se presentan juntos porque es raro usarlos de forma aislada en contexto de hipertrofia.
+  </div>
+
+  <!-- CJC-1295 -->
+  <div class="peptide-card">
+    <div class="peptide-card-header">
+      <div>
+        <div class="peptide-name">CJC-1295</div>
+        <div class="peptide-alias">Con o sin DAC (Drug Affinity Complex) · GHRH análogo</div>
+      </div>
+      <span class="badge badge-muscle">GHRH</span>
+    </div>
+    <div class="peptide-body">
+      <div class="mechanism-strip">
+        <span class="icon">⚙️</span>
+        <div class="mechanism-text">
+          <strong>Mecanismo:</strong> Análogo de GHRH que se une al receptor GHRH-R en la hipófisis anterior, estimulando la liberación pulsátil de GH. <strong>CJC-1295 con DAC</strong> tiene vida media de 8–10 días (se une a albúmina sérica); genera una ola lenta y prolongada de GH. <strong>CJC-1295 sin DAC</strong> (también llamado Mod GRF 1-29) tiene vida media de ~30 min; actúa en el pulso fisiológico agudo. En hipertrofia se prefiere la versión sin DAC para un perfil más fisiológico.
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Dosis (sin DAC)</div>
+        <div class="info-content"><strong>100 mcg por inyección</strong> SC. Siempre combinado con un GHRP/Ipamorelin en la misma jeringa.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Dosis (con DAC)</div>
+        <div class="info-content"><strong>1–2 mg / 1–2 veces por semana</strong> SC. Satura los receptores GHRH de manera continua — menos pulsátil pero más conveniente.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Horario (sin DAC)</div>
+        <div class="info-content">Pre-sueño (3h post-comida), pre-entrenamiento, o mañana en ayunas. Hasta 3 inyecciones/día en protocolos avanzados.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Duración del ciclo</div>
+        <div class="info-content"><strong>12–24 semanas.</strong> Los GHSs requieren tiempo para generar adaptación anabólica. Resultados en composición corporal desde semana 8–10.</div>
+      </div>
+      <div class="se-grid">
+        <div class="se-block warning">
+          <div class="se-title warn">Efectos secundarios</div>
+          Retención hídrica leve–moderada (efecto GH). Somnolencia post-inyección nocturna (aprovechable). Elevación de glucemia en ayunas (monitorear). Con DAC: "GH bleed" — niveles de GH persistentemente elevados que pueden causar más retención y acromegalia con uso muy prolongado.
+        </div>
+        <div class="se-block mitigation">
+          <div class="se-title ok">Mitigación</div>
+          Preferir versión sin DAC para mejor control. Monitorear glucemia en ayunas mensualmente. Ciclos con descanso (4–6 semanas off). Hidratación. Reducir sodio si hay edema.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ipamorelin -->
+  <div class="peptide-card">
+    <div class="peptide-card-header">
+      <div>
+        <div class="peptide-name">Ipamorelin</div>
+        <div class="peptide-alias">GHRP de 5ª generación · Más selectivo del mercado</div>
+      </div>
+      <span class="badge badge-muscle">GHRP</span>
+    </div>
+    <div class="peptide-body">
+      <div class="mechanism-strip">
+        <span class="icon">⚙️</span>
+        <div class="mechanism-text">
+          <strong>Mecanismo:</strong> Agonista selectivo del receptor de ghrelina (GHS-R1a) en la hipófisis. Estimula la liberación de GH de forma pulsátil y <strong>altamente selectiva</strong>: a diferencia de GHRP-2 o GHRP-6, <strong>no eleva cortisol ni prolactina</strong> de forma significativa, y no estimula el apetito en grado relevante. Es el GHRP con el perfil de efectos secundarios más limpio. La combinación CJC-1295/Ipamorelin genera un pico de GH sinérgico (el GHRH prepara la hipófisis y el GHRP dispara la liberación).
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Dosis estándar</div>
+        <div class="info-content"><strong>100–300 mcg por inyección</strong> SC o IM. Dosis más efectiva: 200 mcg.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Horario recomendado</div>
+        <div class="info-content">Pre-sueño (protocolo gold standard: 100–200 mcg CJC + 200 mcg Ipamorelin, 3h post-cena). También pre-entreno. Hasta 3x/día en fases avanzadas.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Duración del ciclo</div>
+        <div class="info-content"><strong>12–20 semanas.</strong> Descanso de 4 semanas. Algunos usan 5 días ON / 2 OFF para preservar sensibilidad del receptor.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Ventaja vs GHRP-2/GHRP-6</div>
+        <div class="info-content">Sin elevación de cortisol, sin hambre voraz, sin elevación de prolactina. Ideal para fases de cutting donde el GHRP-6 causaría demasiado apetito. <strong>Primera elección en la mayoría de protocolos.</strong></div>
+      </div>
+      <div class="se-grid">
+        <div class="se-block warning">
+          <div class="se-title warn">Efectos secundarios</div>
+          Enrojecimiento facial transitorio ("flush"). Hormigueo extremidades. Somnolencia (dosis alta). Leve retención hídrica. Muy raramente: mareo o hipotensión transitoria.
+        </div>
+        <div class="se-block mitigation">
+          <div class="se-title ok">Mitigación</div>
+          Iniciar con 100 mcg para evaluar tolerancia. Inyección lenta. El flush desaparece con uso continuado (tolerancia en 1–2 semanas). Evitar dosis >300 mcg/inyección — no lineal en beneficios.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GHRP-2 -->
+  <div class="peptide-card">
+    <div class="peptide-card-header">
+      <div>
+        <div class="peptide-name">GHRP-2</div>
+        <div class="peptide-alias">Growth Hormone Releasing Peptide 2 · Alta potencia</div>
+      </div>
+      <span class="badge badge-muscle">GHRP · Alta potencia</span>
+    </div>
+    <div class="peptide-body">
+      <div class="mechanism-strip">
+        <span class="icon">⚙️</span>
+        <div class="mechanism-text">
+          <strong>Mecanismo:</strong> Agonista del receptor GHS-R1a con mayor potencia que Ipamorelin. Genera picos de GH más altos pero <strong>eleva moderadamente cortisol y prolactina</strong> (20–30% sobre basal). Más adecuado para fases de volumen o en usuarios que necesitan el máximo pico de GH. En ayunas potencia mucho su efecto lipolítico secundario.
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Dosis estándar</div>
+        <div class="info-content"><strong>100–300 mcg por inyección</strong> SC. No superar 300 mcg/inyección — efecto techo.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Horario recomendado</div>
+        <div class="info-content">Pre-sueño y/o pre-entrenamiento. Compatible con CJC-1295. Ayunas amplifica el pico de GH hasta 4x vs estado postprandial.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Cuándo elegir GHRP-2 vs Ipamorelin</div>
+        <div class="info-content">GHRP-2 en <strong>volumen</strong> (máximo pico GH, anabolismo). Ipamorelin en <strong>cutting o recomposición</strong> (sin cortisol, sin apetito extra). GHRP-2 si se busca máximo efecto a menor costo. Ipamorelin si se prioriza calidad de vida/efectos secundarios.</div>
+      </div>
+      <div class="se-grid">
+        <div class="se-block warning">
+          <div class="se-title warn">Efectos secundarios</div>
+          Elevación de cortisol y prolactina. Aumento del apetito (moderado). Retención hídrica. Somnolencia. Hormigueo.
+        </div>
+        <div class="se-block mitigation">
+          <div class="se-title ok">Mitigación</div>
+          Si hay hiperprolactinemia: considerar 0.25 mg cabergolina/semana. No usar en fase de cutting estricta. Ciclos cortos (8–12 sem) con off. Monitorear cortisol basal si hay fatiga crónica.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MK-677 (mencionado como referencia) -->
+  <div class="peptide-card">
+    <div class="peptide-card-header">
+      <div>
+        <div class="peptide-name">MK-677 (Ibutamoren)</div>
+        <div class="peptide-alias">GHS oral · No es péptido pero actúa como GHRP oral</div>
+      </div>
+      <span class="badge badge-muscle">GHS oral</span>
+    </div>
+    <div class="peptide-body">
+      <div class="mechanism-strip">
+        <span class="icon">⚙️</span>
+        <div class="mechanism-text">
+          <strong>Mecanismo:</strong> Agonista no peptídico oral del receptor de ghrelina (GHS-R1a). <strong>Eleva GH e IGF-1 de forma sostenida</strong> (no pulsátil). A diferencia de los péptidos inyectables, su semivida es de ~24h, lo que genera niveles de GH e IGF-1 crónicamente elevados. Muy popular por la comodidad oral, aunque el perfil no pulsátil implica mayor retención hídrica y más riesgo de desensibilización del receptor.
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Dosis estándar</div>
+        <div class="info-content"><strong>10–25 mg/día</strong> oral. Iniciar en 10 mg para evaluar tolerancia. Dosis más usada: 12.5–25 mg antes de dormir.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Duración del ciclo</div>
+        <div class="info-content"><strong>16–24 semanas.</strong> Algunos lo usan de forma continua (uso off-label largo plazo) con monitoreo de IGF-1 y glucemia.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Beneficios adicionales</div>
+        <div class="info-content">Mejora notable del sueño profundo (REM y SWS). Aumento del apetito (útil en volumen). Mejora de la densidad mineral ósea. Acción en recuperación de tejidos por elevación de IGF-1.</div>
+      </div>
+      <div class="se-grid">
+        <div class="se-block warning">
+          <div class="se-title warn">Efectos secundarios</div>
+          Hambre intensa (riesgo en cutting). Retención hídrica marcada (cara, manos). Resistencia a la insulina leve (glucemia en ayunas puede elevarse 5–10%). Somnolencia diurna. Elevación de prolactina con dosis altas.
+        </div>
+        <div class="se-block mitigation">
+          <div class="se-title ok">Mitigación</div>
+          Tomar de noche (reduce somnolencia diurna). Dosis inicial baja (10 mg). Dieta controlada en carbohidratos simples. Monitorear glucemia en ayunas. Berberina 500 mg o metformina en usuarios con predisposición a resistencia insulínica.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     03 · RECUPERACIÓN DE TEJIDOS
+═══════════════════════════════════════════ -->
+<section class="module" id="recovery">
+  <div class="module-header">
+    <div class="module-number">03</div>
+    <div class="module-title-block">
+      <h2>Recuperación de<br>Tejidos</h2>
+      <p class="module-desc">Los péptidos con mayor evidencia en reparación de tendones, ligamentos, cartílago, músculo y tejido nervioso.</p>
+    </div>
+  </div>
+
+  <!-- BPC-157 -->
+  <div class="peptide-card">
+    <div class="peptide-card-header">
+      <div>
+        <div class="peptide-name">BPC-157</div>
+        <div class="peptide-alias">Body Protection Compound 157 · Péptido gástrico</div>
+      </div>
+      <span class="badge badge-recovery">Reparación universal</span>
+    </div>
+    <div class="peptide-body">
+      <div class="mechanism-strip">
+        <span class="icon">⚙️</span>
+        <div class="mechanism-text">
+          <strong>Mecanismo:</strong> Pentadecapéptido derivado de una proteína del jugo gástrico. Actúa mediante múltiples vías: <strong>(1)</strong> Upregulation del receptor de VEGF → angiogénesis (formación de nuevos vasos en el tejido lesionado). <strong>(2)</strong> Activación de fibroblastos → síntesis de colágeno y reparación del tejido conectivo. <strong>(3)</strong> Modulación del sistema dopaminérgico y serotoninérgico → efecto citoprotector y antiinflamatorio sistémico. <strong>(4)</strong> Aceleración de la expresión de genes de reparación muscular (MyoD, miosina). <strong>Acción tanto local (inyección en zona lesionada) como sistémica (SC alejado de la lesión).</strong>
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Dosis estándar</div>
+        <div class="info-content"><strong>200–500 mcg/día</strong> SC o IM. Rango más usado: 250–300 mcg, 1–2 veces/día. Dosis oral: 500 mcg–1 mg/día (para efectos GI y sistémicos parciales).</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Horario recomendado</div>
+        <div class="info-content">Mañana y noche. Para lesiones articulares específicas: inyección perilesional (SC cerca de la articulación afectada) amplifica el efecto local. No es necesario el ayuno.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Duración del ciclo</div>
+        <div class="info-content"><strong>4–12 semanas</strong> según la gravedad de la lesión. Lesiones agudas (tendón): 4–6 semanas. Lesiones crónicas o cartílago: 8–12 semanas. Puede usarse de forma continua con bajo riesgo.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Indicaciones principales</div>
+        <div class="info-content">Tendinopatías (manguito rotador, tendón de Aquiles, codo de tenista). Esguinces ligamentosos. Desgarros musculares parciales. Síndrome de intestino permeable. Lesiones del SNC (evidencia preliminar en modelos animales). Gastritis / úlcera péptica (oral).</div>
+      </div>
+      <div class="se-grid">
+        <div class="se-block warning">
+          <div class="se-title warn">Efectos secundarios</div>
+          Extraordinariamente bien tolerado. Posible mareo leve con dosis altas IM. Náusea ocasional. <strong>Sin evidencia de toxicidad sistémica en estudios disponibles.</strong> Teórica preocupación sobre angiogénesis en tumores existentes (no demostrado en humanos pero se aplica precaución oncológica).
+        </div>
+        <div class="se-block mitigation">
+          <div class="se-title ok">Mitigación</div>
+          No usar en pacientes con historia de neoplasias activas. Iniciar con dosis baja (200 mcg) para evaluar tolerancia. Preferir SC sobre IM para uso sistémico. Reconstitución estricta con agua bacteriostática.
+        </div>
+      </div>
+      <div class="info-block full-width">
+        <div class="info-label">Evidencia y estado regulatorio</div>
+        <div class="info-content">La mayoría de la evidencia proviene de modelos animales (ratas), pero los resultados son consistentes y reproducibles. Estudios en humanos son limitados pero los reportes clínicos son sólidos. <strong>No aprobado por FDA para uso humano.</strong> Prohibido en competición por WADA (lista de sustancias prohibidas en investigación). Ampliamente disponible como "péptido de investigación".</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TB-500 -->
+  <div class="peptide-card">
+    <div class="peptide-card-header">
+      <div>
+        <div class="peptide-name">TB-500</div>
+        <div class="peptide-alias">Thymosin Beta-4 (fragmento sintético) · Factor de movilidad celular</div>
+      </div>
+      <span class="badge badge-recovery">Sistémico · Movilidad celular</span>
+    </div>
+    <div class="peptide-body">
+      <div class="mechanism-strip">
+        <span class="icon">⚙️</span>
+        <div class="mechanism-text">
+          <strong>Mecanismo:</strong> Fragmento sintético de Thymosin Beta-4, una proteína naturalmente presente en plaquetas y células inmunes. Su acción principal es el <strong>upregulation de actina</strong> en células de reparación, lo que mejora la migración celular hacia el tejido lesionado. Adicionalmente: promueve angiogénesis, reduce la inflamación (vía NFκB), estimula la diferenciación de células satélite musculares, y mejora la flexibilidad del tejido conectivo. <strong>Su gran ventaja sobre BPC-157 es su acción sistémica más potente</strong> — ideal para lesiones difusas o cuando no se puede localizar la inyección.
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Dosis estándar</div>
+        <div class="info-content"><strong>Carga:</strong> 2–2.5 mg, 2 veces/semana × 4–6 semanas. <strong>Mantenimiento:</strong> 2 mg, 1 vez/semana × 4–6 semanas adicionales.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Horario recomendado</div>
+        <div class="info-content">2–3 veces por semana. Sin restricción de horario respecto a comidas. Preferible SC abdominal o IM en zona próxima a la lesión.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">TB-500 vs BPC-157</div>
+        <div class="info-content"><strong>BPC-157</strong> → más potente para tejido conectivo local, tendones, GI. <strong>TB-500</strong> → más potente para músculo, heridas, efectos sistémicos y reducción de inflamación difusa. <strong>En stack son complementarios</strong> (BPC-157 + TB-500 = protocolo de recuperación acelerada usado frecuentemente).</div>
+      </div>
+      <div class="se-grid">
+        <div class="se-block warning">
+          <div class="se-title warn">Efectos secundarios</div>
+          Fatiga transitoria post-inyección. Dolor de cabeza leve (raro). Mareo si la inyección es muy rápida IM. Misma precaución oncológica que BPC-157 (angiogénesis).
+        </div>
+        <div class="se-block mitigation">
+          <div class="se-title ok">Mitigación</div>
+          Inyección lenta (SC preferible). Dosis de carga puede dividirse en 2 inyecciones/semana en lugar de una sola. No usar en contexto oncológico activo.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sermorelin -->
+  <div class="peptide-card">
+    <div class="peptide-card-header">
+      <div>
+        <div class="peptide-name">Sermorelin</div>
+        <div class="peptide-alias">GHRH 1-29 · Análogo natural de GHRH · Recuperación + GH</div>
+      </div>
+      <span class="badge badge-recovery">GHRH · Recuperación sistémica</span>
+    </div>
+    <div class="peptide-body">
+      <div class="mechanism-strip">
+        <span class="icon">⚙️</span>
+        <div class="mechanism-text">
+          <strong>Mecanismo:</strong> Primeros 29 aminoácidos de la GHRH endógena. Estimula la hipófisis para liberar GH endógena de forma pulsátil y fisiológica. En recuperación de tejidos su rol es indirecto pero potente: la GH elevada aumenta IGF-1 sistémico, que <strong>activa células satélite musculares, estimula la síntesis de colágeno tipo I y III, y mejora la vascularización del tejido lesionado.</strong> Más "suave" que CJC-1295, vida media corta, muy fisiológico.
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Dosis estándar</div>
+        <div class="info-content"><strong>200–500 mcg/día</strong> SC, preferiblemente antes de dormir.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Duración del ciclo</div>
+        <div class="info-content"><strong>12–24 semanas.</strong> Ideal para uso prolongado en recuperación, anti-aging o en usuarios >35 años con deficiencia relativa de GH.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Rol en recuperación</div>
+        <div class="info-content">Excelente para recuperación general post-cirugía, fractura ósea o lesión severa donde se necesite un estado anabólico sostenido. Frecuentemente combinado con BPC-157 en protocolos de recuperación post-quirúrgica.</div>
+      </div>
+      <div class="se-grid">
+        <div class="se-block warning">
+          <div class="se-title warn">Efectos secundarios</div>
+          Retención hídrica leve. Somnolencia nocturna (beneficiosa si se usa para dormir). Hormigueo en extremidades. Raramente: elevación de glucemia.
+        </div>
+        <div class="se-block mitigation">
+          <div class="se-title ok">Mitigación</div>
+          Uso nocturno minimiza efectos. Ciclos con off de 4–6 semanas. Monitorear IGF-1 y glucemia basal cada 8–12 semanas.
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     04 · ASPECTOS ESTÉTICOS
+═══════════════════════════════════════════ -->
+<section class="module" id="aesthetic">
+  <div class="module-header">
+    <div class="module-number">04</div>
+    <div class="module-title-block">
+      <h2>Aspectos<br>Estéticos</h2>
+      <p class="module-desc">Péptidos con acción sobre piel, cabello, colágeno, pigmentación y calidad del tejido dérmico.</p>
+    </div>
+  </div>
+
+  <!-- GHK-Cu -->
+  <div class="peptide-card">
+    <div class="peptide-card-header">
+      <div>
+        <div class="peptide-name">GHK-Cu</div>
+        <div class="peptide-alias">Gly-His-Lys Cobre · Péptido de cobre</div>
+      </div>
+      <span class="badge badge-aesthetic">Dérmico · Antiaging</span>
+    </div>
+    <div class="peptide-body">
+      <div class="mechanism-strip">
+        <span class="icon">⚙️</span>
+        <div class="mechanism-text">
+          <strong>Mecanismo:</strong> Tripéptido naturalmente presente en plasma humano cuya concentración declina con la edad. El complejo con cobre actúa como señal de reparación tisular: <strong>(1)</strong> Estimula la síntesis de colágeno I, III y elastina en fibroblastos dérmicos. <strong>(2)</strong> Activa antioxidantes endógenos (SOD, catalasa). <strong>(3)</strong> Promueve la diferenciación de folículos pilosos y la expresión de factores de crecimiento capilar. <strong>(4)</strong> Reduce la expresión de metaloproteasas (enzimas que degradan el colágeno). <strong>(5)</strong> Modula la expresión de >4.000 genes, muchos relacionados con reparación celular y antienvejecimiento.
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Vías de uso</div>
+        <div class="info-content"><strong>Tópico:</strong> solución 1–2% aplicada 1–2 veces/día en piel o cuero cabelludo. <strong>SC/IM:</strong> 1–2 mg/día para efectos sistémicos (rejuvenecimiento, recuperación). Rodillo dérmico (microneedling) potencia la absorción tópica x10.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Duración del ciclo</div>
+        <div class="info-content"><strong>Tópico:</strong> uso continuo, resultados a partir de 4–8 semanas. <strong>SC:</strong> 8–12 semanas con posibilidad de uso continuo. Sin evidencia de toxicidad en uso prolongado.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Indicaciones estéticas</div>
+        <div class="info-content">Reducción de arrugas finas y pérdida de firmeza. Alopecia androgénica y difusa (en sinergia con minoxidil). Hiperpigmentación (reduce melanina al competir con el cobre necesario para la tirosinasa). Cicatrices y estrías (mejora el remodelado del colágeno).</div>
+      </div>
+      <div class="se-grid">
+        <div class="se-block warning">
+          <div class="se-title warn">Efectos secundarios</div>
+          Tópico: irritación leve al inicio (transitoria). SC: oscurecimiento temporal de la piel o melanosis puntual en sitio de inyección (relacionado con el cobre). Sin toxicidad sistémica conocida en dosis terapéuticas.
+        </div>
+        <div class="se-block mitigation">
+          <div class="se-title ok">Mitigación</div>
+          Tópico: comenzar con aplicación en días alternos. Evitar contacto ocular. SC: rotar sitios de inyección para evitar hiperpigmentación localizada. Fotosensibilidad: usar protector solar durante el ciclo.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Epithalon -->
+  <div class="peptide-card">
+    <div class="peptide-card-header">
+      <div>
+        <div class="peptide-name">Epithalon</div>
+        <div class="peptide-alias">Epitalon · Tetrapéptido de la glándula pineal</div>
+      </div>
+      <span class="badge badge-aesthetic">Antiaging · Telómeros</span>
+    </div>
+    <div class="peptide-body">
+      <div class="mechanism-strip">
+        <span class="icon">⚙️</span>
+        <div class="mechanism-text">
+          <strong>Mecanismo:</strong> Tetrapéptido (Ala-Glu-Asp-Gly) desarrollado por el Instituto de Gerontología de San Petersburgo. Su mecanismo más estudiado: <strong>activación de la telomerasa</strong>, la enzima responsable de alargar los telómeros (capuchones del ADN que se acortan con cada división celular). Adicionalmente: regula la glándula pineal → normaliza los ritmos circadianos y la melatonina. Modula la expresión de genes implicados en la apoptosis celular. Restaura la respuesta inmune tímica. Efecto antioxidante.
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Dosis estándar</div>
+        <div class="info-content"><strong>5–10 mg/día</strong> SC o IM. Protocolo clásico: 10 mg/día × 10 días (ciclo corto) o 5 mg/día × 20 días.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Frecuencia de ciclos</div>
+        <div class="info-content"><strong>1–2 ciclos al año</strong> es el protocolo más conservador y usado. Algunos hacen ciclos de 20 días cada 6 meses. El uso excesivo no ofrece ventajas adicionales documentadas.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Beneficios reportados</div>
+        <div class="info-content">Mejora de calidad del sueño (normaliza melatonina). Mejora del estado de ánimo y cognición. Piel con mayor luminosidad y firmeza (telómeros más largos → mayor vida celular de fibroblastos). Potencial longevidad celular. Normalización del eje pineal-hipofisario.</div>
+      </div>
+      <div class="se-grid">
+        <div class="se-block warning">
+          <div class="se-title warn">Efectos secundarios</div>
+          Muy bien tolerado. Somnolencia durante el ciclo (favorable si se usa de noche). Mareo leve (raro). Precaución teórica: la activación de telomerasa en células potencialmente malignas (no demostrado clínicamente pero se evita en pacientes oncológicos).
+        </div>
+        <div class="se-block mitigation">
+          <div class="se-title ok">Mitigación</div>
+          Usar en la noche aprovechando la somnolencia. No usar en contexto oncológico. Ciclos espaciados (máx 2/año). Idealmente con analítica basal previa.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PT-141 / Melanotan II -->
+  <div class="peptide-card">
+    <div class="peptide-card-header">
+      <div>
+        <div class="peptide-name">Melanotan II / PT-141</div>
+        <div class="peptide-alias">α-MSH análogo · Melanocortinas</div>
+      </div>
+      <span class="badge badge-aesthetic">Pigmentación · Libido</span>
+    </div>
+    <div class="peptide-body">
+      <div class="mechanism-strip">
+        <span class="icon">⚙️</span>
+        <div class="mechanism-text">
+          <strong>Mecanismo:</strong> Análogos de la hormona estimulante de melanocitos (α-MSH). Se unen a receptores de melanocortina (MC1R en melanocitos → pigmentación; MC3R/MC4R en SNC → saciedad y libido). <strong>Melanotan II:</strong> efecto bronceador (estimula melanogénesis sin luz UV), supresor del apetito, aumento de libido. <strong>PT-141 (Bremelanotida):</strong> forma más selectiva, aprobada por FDA para disfunción sexual femenina (Vyleesi®), con menor efecto bronceador. Ambos tienen efecto disforia-motivacional y proerectil vía MC4R central.
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Dosis Melanotan II</div>
+        <div class="info-content"><strong>Carga:</strong> iniciar en 0.25 mg SC y escalar gradualmente hasta 0.5–1 mg/día. <strong>Mantenimiento:</strong> 0.5 mg cada 2–3 días una vez alcanzado el tono deseado.</div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Dosis PT-141</div>
+        <div class="info-content"><strong>0.5–2 mg</strong> SC o intranasal, 1–2 horas antes del uso deseado. Dosis aprobada: 1.75 mg SC. No para uso diario crónico.</div>
+      </div>
+      <div class="se-grid">
+        <div class="se-block warning">
+          <div class="se-title warn">Efectos secundarios</div>
+          <strong>Melanotan II:</strong> náuseas intensas (muy comunes al inicio), flushing facial, somnolencia, erección espontánea (varones), activación de nevos/lunares preexistentes (riesgo de transformación maligna — IMPORTANTE). Oscurecimiento de lunares. PT-141: náuseas, HTA transitoria, flushing.
+        </div>
+        <div class="se-block mitigation">
+          <div class="se-title ok">Mitigación</div>
+          Escalar dosis muy gradualmente. Antihistamínico previo reduce náuseas. Monitorear lunares — revisión dermatológica antes y durante. PT-141 es más seguro que MT-II. <strong>Contraindicado en personas con antecedente de melanoma o muchos nevos atípicos.</strong>
+        </div>
+      </div>
+      <div class="callout warn" style="grid-column:1/-1;margin:0">
+        <strong>Advertencia importante sobre Melanotan II:</strong> La activación inespecífica de MC1R puede estimular la proliferación de melanocitos en nevos preexistentes. No es un riesgo trivial — exige valoración dermatológica previa con dermatoscopia. Este es uno de los péptidos que requiere mayor precaución.
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     05 · STACKS
+═══════════════════════════════════════════ -->
+<section class="module" id="stacks">
+  <div class="module-header">
+    <div class="module-number">05</div>
+    <div class="module-title-block">
+      <h2>Stacks y Protocolos<br>Combinados</h2>
+      <p class="module-desc">Combinaciones sinérgicas validadas por uso clínico y reporte de usuarios avanzados.</p>
+    </div>
+  </div>
+
+  <div class="stack-card">
+    <div class="stack-title">Stack Recomposición Corporal</div>
+    <div class="stack-goal">OBJETIVO: pérdida de grasa + preservación / ganancia muscular simultánea</div>
+    <div class="stack-items">
+      <span class="stack-pill">CJC-1295 sin DAC 100 mcg</span>
+      <span class="stack-pill">+ Ipamorelin 200 mcg</span>
+      <span class="stack-pill">Noche (pre-sueño)</span>
+      <span class="stack-pill">+ AOD-9604 300 mcg mañana en ayunas</span>
+    </div>
+    <div class="stack-note">Protocolo: 12–16 semanas / 5 días ON – 2 OFF. Resultados en composición corporal visibles desde semana 8. Ideal para atletas en fase de recomp o "cutting limpio".</div>
+  </div>
+
+  <div class="stack-card">
+    <div class="stack-title">Stack Volumen / Hipertrofia</div>
+    <div class="stack-goal">OBJETIVO: máximo entorno anabólico con péptidos</div>
+    <div class="stack-items">
+      <span class="stack-pill">CJC-1295 sin DAC 100 mcg</span>
+      <span class="stack-pill">+ GHRP-2 200–300 mcg</span>
+      <span class="stack-pill">Pre-sueño + Pre-entreno</span>
+      <span class="stack-pill">MK-677 12.5–25 mg noche (opcional)</span>
+    </div>
+    <div class="stack-note">El GHRP-2 eleva más el pico de GH que Ipamorelin, ideal en volumen. MK-677 añade base continua de IGF-1. Monitorear glucemia en ayunas semanalmente.</div>
+  </div>
+
+  <div class="stack-card">
+    <div class="stack-title">Stack Recuperación de Lesión Aguda</div>
+    <div class="stack-goal">OBJETIVO: reparación acelerada de tendón, ligamento o músculo</div>
+    <div class="stack-items">
+      <span class="stack-pill">BPC-157 250 mcg × 2/día</span>
+      <span class="stack-pill">+ TB-500 2 mg × 2–3/semana (carga)</span>
+      <span class="stack-pill">Sermorelin 300 mcg noche (soporte GH)</span>
+    </div>
+    <div class="stack-note">Protocolo de carga 6 semanas → mantenimiento con BPC-157 solo 4 semanas adicionales. Para lesiones graves (rotura parcial de tendón, post-cirugía) considera añadir PRP o colágeno hidrolizado oral.</div>
+  </div>
+
+  <div class="stack-card">
+    <div class="stack-title">Stack Estético / Antiaging</div>
+    <div class="stack-goal">OBJETIVO: piel, cabello, composición corporal y longevidad celular</div>
+    <div class="stack-items">
+      <span class="stack-pill">GHK-Cu tópico 1–2% diario</span>
+      <span class="stack-pill">+ Epithalon 10 mg/día × 10 días (2x/año)</span>
+      <span class="stack-pill">+ CJC-1295 / Ipamorelin noche</span>
+      <span class="stack-pill">+ AOD-9604 si hay grasa abdominal</span>
+    </div>
+    <div class="stack-note">El Epithalon se usa en ciclos cortos intercalados. El GHK-Cu es de uso continuo tópico. El eje GH nocturno (CJC+Ipa) soporta síntesis de colágeno endógeno y recuperación celular cutánea.</div>
+  </div>
+
+  <div class="stack-card">
+    <div class="stack-title">Stack Básico de Entrada</div>
+    <div class="stack-goal">Para clientes nuevos o sin experiencia previa con péptidos</div>
+    <div class="stack-items">
+      <span class="stack-pill">Ipamorelin 100–200 mcg</span>
+      <span class="stack-pill">Antes de dormir</span>
+      <span class="stack-pill">12 semanas continuas</span>
+      <span class="stack-pill">Monitoreo mensual</span>
+    </div>
+    <div class="stack-note">Empezar con un solo péptido permite aislar respuesta individual y tolerancia. Añadir CJC-1295 en semana 4 si hay buena tolerancia. Nunca comenzar con 3+ péptidos simultáneamente en usuarios sin experiencia.</div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     06 · CONSIDERACIONES GENERALES
+═══════════════════════════════════════════ -->
+<section class="module" id="considerations">
+  <div class="module-header">
+    <div class="module-number">06</div>
+    <div class="module-title-block">
+      <h2>Consideraciones<br>Generales</h2>
+      <p class="module-desc">Aspectos transversales que todo profesional debe dominar antes de trabajar con péptidos.</p>
+    </div>
+  </div>
+
+  <div class="section-label">Monitoreo y Analítica Recomendada</div>
+  <table class="protocol-table">
+    <tr>
+      <th>Momento</th>
+      <th>Parámetros</th>
+      <th>Relevancia</th>
+    </tr>
+    <tr>
+      <td><strong>Basal (antes de iniciar)</strong></td>
+      <td>IGF-1, glucemia en ayunas, hemograma, cortisol matutino, prolactina, TSH, perfil lipídico</td>
+      <td>Línea de base para detectar cambios y contraindicaciones</td>
+    </tr>
+    <tr>
+      <td><strong>A las 6–8 semanas</strong></td>
+      <td>IGF-1, glucemia, presión arterial</td>
+      <td>Ajuste de dosis; detectar retención o alteración glucémica</td>
+    </tr>
+    <tr>
+      <td><strong>Al finalizar ciclo</strong></td>
+      <td>IGF-1, cortisol, glucemia, hemograma completo</td>
+      <td>Evaluación del impacto y retorno a basal</td>
+    </tr>
+    <tr>
+      <td><strong>Melanotan II específico</strong></td>
+      <td>Dermatoscopia (nevos atípicos)</td>
+      <td>Antes de iniciar y cada 4 semanas durante ciclo</td>
+    </tr>
+  </table>
+
+  <div class="section-label">Interacciones relevantes</div>
+  <ul class="dot-list">
+    <li><strong>Insulina + GHSs:</strong> la insulina suprime el pico de GH. No inyectar GHSs en los 60–90 min post-comida rica en carbohidratos.</li>
+    <li><strong>Corticoides (farmacológicos) + BPC-157:</strong> los corticoides pueden atenuar el efecto reparador. Espaciar si es posible.</li>
+    <li><strong>Péptidos + AAS:</strong> generalmente complementarios. Los GHSs amplifican el entorno anabólico de los esteroides. No hay interacciones adversas documentadas.</li>
+    <li><strong>MK-677 + metformina/berberina:</strong> el MK-677 eleva la glucemia; estos agentes la controlan — combinación útil en usuarios con sensibilidad reducida a la insulina.</li>
+    <li><strong>Tesamorelin + insulina exógena:</strong> precaución en diabéticos; puede requerir ajuste de dosis de insulina.</li>
+  </ul>
+
+  <div class="section-label">Calidad del producto y fuentes</div>
+  <div class="callout warn">
+    <strong>Este es el mayor riesgo real en la práctica.</strong> El mercado de péptidos está plagado de productos adulterados, subdesarrollados o mal reconstituidos. Criterios mínimos para valorar un proveedor: (1) HPLC y espectrometría de masas (MS) disponibles como certificados de análisis por lote. (2) Procedencia de laboratorio GMP o con trazabilidad documental. (3) Sin solventes de reconstitución no declarados. (4) Etiquetado correcto de concentración. La variabilidad entre lotes es la causa más común de respuesta inconsistente.
+  </div>
+
+  <div class="section-label">Reglas de oro en el manejo práctico</div>
+  <ul class="dot-list">
+    <li>Siempre agua bacteriostática para reconstitución, no agua estéril simple (la bacteriostática conserva hasta 30 días en nevera).</li>
+    <li>Jeringas de insulina 29–31G para minimizar dolor y trauma en el tejido SC.</li>
+    <li>Rotar el sitio de inyección para evitar lipodistrofia local.</li>
+    <li>Almacenamiento: polvo liofilizado a –20°C (meses); reconstituido a 4°C (máx 30 días); evitar ciclos de congelación-descongelación repetidos.</li>
+    <li>Nunca mezclar péptidos de reconstitución si no se conoce la compatibilidad (pH diferente puede degradarlos).</li>
+    <li>Un cliente nuevo = un péptido a la vez durante las primeras 4 semanas. Protocolo de prueba.</li>
+    <li>Nunca recomendar sin historial clínico mínimo: antecedentes oncológicos, diabetes, embarazo, patología tiroidea.</li>
+  </ul>
+
+  <div class="section-label">Tabla resumen rápida</div>
+  <table class="protocol-table">
+    <tr>
+      <th>Péptido</th>
+      <th>Objetivo principal</th>
+      <th>Dosis típica</th>
+      <th>Vía</th>
+      <th>Ciclo</th>
+    </tr>
+    <tr><td><strong>AOD-9604</strong></td><td>Lipólisis</td><td>250–500 mcg/día</td><td>SC</td><td>8–12 sem</td></tr>
+    <tr><td><strong>Fragment 176-191</strong></td><td>Lipólisis</td><td>250 mcg × 2/día</td><td>SC</td><td>8–12 sem</td></tr>
+    <tr><td><strong>Tesamorelin</strong></td><td>Grasa visceral</td><td>1–2 mg/día</td><td>SC</td><td>12–26 sem</td></tr>
+    <tr><td><strong>CJC-1295 (sin DAC)</strong></td><td>GH / músculo</td><td>100 mcg/inj</td><td>SC</td><td>12–20 sem</td></tr>
+    <tr><td><strong>Ipamorelin</strong></td><td>GH / músculo / lípidos</td><td>100–300 mcg/inj</td><td>SC</td><td>12–20 sem</td></tr>
+    <tr><td><strong>GHRP-2</strong></td><td>GH alta potencia</td><td>100–300 mcg/inj</td><td>SC</td><td>8–12 sem</td></tr>
+    <tr><td><strong>MK-677</strong></td><td>GH/IGF-1 oral</td><td>10–25 mg/día</td><td>Oral</td><td>16–24 sem</td></tr>
+    <tr><td><strong>BPC-157</strong></td><td>Reparación tisular</td><td>250–500 mcg/día</td><td>SC/IM/Oral</td><td>4–12 sem</td></tr>
+    <tr><td><strong>TB-500</strong></td><td>Reparación sistémica</td><td>2 mg × 2–3/sem</td><td>SC/IM</td><td>6–10 sem</td></tr>
+    <tr><td><strong>Sermorelin</strong></td><td>GH fisiológica / recovery</td><td>200–500 mcg/día</td><td>SC</td><td>12–24 sem</td></tr>
+    <tr><td><strong>GHK-Cu</strong></td><td>Piel / cabello / colágeno</td><td>Tópico 1–2% / 1–2 mg SC</td><td>Tópico/SC</td><td>Continuo</td></tr>
+    <tr><td><strong>Epithalon</strong></td><td>Antiaging / telómeros</td><td>5–10 mg/día × 10–20 días</td><td>SC/IM</td><td>2x/año</td></tr>
+    <tr><td><strong>Melanotan II</strong></td><td>Pigmentación / libido</td><td>0.25–1 mg/día (carga)</td><td>SC</td><td>Hasta tono + mant.</td></tr>
+  </table>
+
+</section>
+
+</div><!-- /container -->
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════ -->
+<footer>
+  <div style="margin-bottom:12px;font-size:16px;font-family:'Playfair Display',serif;color:var(--text-dim)">NJ Coaching</div>
+  Manual Técnico de Referencia — Péptidos en Farmacología Deportiva<br>
+  Versión 2025 · Uso interno y formación profesional<br><br>
+  <span style="color:rgba(255,255,255,0.2)">Este documento es para fines educativos. El uso de estas sustancias debe enmarcarse en la legalidad vigente del país de aplicación y bajo supervisión profesional apropiada.</span>
+</footer>
+
+</body>
+</html>
